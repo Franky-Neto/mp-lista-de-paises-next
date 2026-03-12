@@ -1,6 +1,10 @@
+import type { Country } from "@/app/types/country";
+
+
 const BASE_URL = "https://restcountries.com/v3.1";
 
-export async function getAllCountries() {
+
+export async function getAllCountries(): Promise<Country[]> {
     try {
     const response = await fetch(`${BASE_URL}/all?fields=name,flags`);
 

@@ -1,6 +1,13 @@
+import * as CountriesApi from "@/app/services/countriesApi"
 
-export default function Home() {
+
+export default async function Home() {
+  const countries = await CountriesApi.getAllCountries();
+  console.log(countries)
+
   return (
-    <h1>Olá Mundo!</h1>
+    <section className="flex w-full container">
+      {countries.map((country) => (<h1 key={country.name.common}>{country.name.common}</h1>))}
+    </section>
   );
 }

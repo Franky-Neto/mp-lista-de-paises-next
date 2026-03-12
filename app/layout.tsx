@@ -1,14 +1,10 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Nunito_Sans } from "next/font/google";
 import "./globals.css";
+import Image from "next/image";
 
-const geistSans = Geist({
+const nunitoSans = Nunito_Sans({
   variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
   subsets: ["latin"],
 });
 
@@ -24,9 +20,22 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        {children}
+      <body className={nunitoSans.variable}>
+        <main className="bg-gray-100 min-h-screen flex flex-col items-center">
+          <nav className="w-full bg-white h-16 flex items-center justify-center">
+            <section className="container flex items-center gap-3">
+              <Image
+                width={48}
+                height={48}
+                src="/logoCountries.svg"
+                alt="Logo da APlicação emoji globo"
+              />
+              <h1 className="font-bold text-2xl gap-3">Lista de Países</h1>
+            </section>
+          </nav>
+
+          {children}
+        </main>
       </body>
     </html>
   );
