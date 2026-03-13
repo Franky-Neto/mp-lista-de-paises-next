@@ -12,4 +12,16 @@ export type Country = {
       svg: string;
       alt: string;
     };
+  
+  population: number;
+  
+  capital: string[];
+
+  region: string;
+
+  continents: string[];
+
+  borders: string[];
+
+  languages?: Record<string, string>
 };

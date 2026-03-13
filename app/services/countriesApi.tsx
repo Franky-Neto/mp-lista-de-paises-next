@@ -25,7 +25,7 @@ export async function getAllCountries(): Promise<Country[]> {
 export async function getCountryByName(name: string): Promise<Country> {
   try {
     const response = await fetch(
-      `${BASE_URL}/name/${encodeURIComponent(name)}?fields=name,flags,capital,population,region,borders,languages,continents,translations`,
+      `${BASE_URL}/name/${name}?fields=name,flags,capital,population,region,borders,languages,continents,translations`,
     );
 
     if (!response.ok) {
