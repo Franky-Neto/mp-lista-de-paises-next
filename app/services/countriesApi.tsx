@@ -23,17 +23,17 @@ export async function getAllCountries(): Promise<Country[]> {
 
 // getAllCountries().then(console.log);
 
-export async function getCountryByName(name: string): Promise<Country> {
+export async function getCountryByName(cca3: string): Promise<Country> {
   try {
     const response = await fetch(
-      `${BASE_URL}/name/${name}?fields=name,flags,capital,population,region,borders,languages,continents,translations,cca3`,
+      `${BASE_URL}/alpha/${cca3}?fields=name,flags,capital,population,region,borders,languages,continents,translations,cca3`,
     );
 
     if (!response.ok) {
       throw new Error(`Erro ao buscar país: ${response.status}`);
     }
 
-    const data = (await response.json())[0];
+    const data = await response.json();
     return data;
   } catch (error) {
     console.error("Erro: ", error);
@@ -43,17 +43,17 @@ export async function getCountryByName(name: string): Promise<Country> {
 
 // getCountryByName('ARG').then(console.log)
 
-export async function getCountryBordersByName(name: string): Promise<BorderCountry[]> {
+export async function getCountryBordersByName(cca3: string): Promise<BorderCountry[]> {
   try {
     const countryResponse = await fetch(
-      `${BASE_URL}/name/${encodeURIComponent(name)}?fields=borders,cca3`,
+      `${BASE_URL}/alpha/${encodeURIComponent(cca3)}?fields=borders,cca3`,
     );
 
     if (!countryResponse.ok) {
       throw new Error(`Erro ao buscar país: ${countryResponse.status}`);
     }
 
-    const [country]: Pick<Country, "borders">[] = await countryResponse.json();
+    const country: Pick<Country, "borders"> = await countryResponse.json();
 
     if (!country.borders?.length) {
       return [];
@@ -67,7 +67,7 @@ export async function getCountryBordersByName(name: string): Promise<BorderCount
       throw new Error(`Erro ao buscar fronteiras: ${bordersResponse.status}`);
     }
 
-    const borderCountries: Pick<Country, "name" | "translations" | "flags">[] =
+    const borderCountries: Pick<Country, "name" | "translations" | "flags" | "cca3">[] =
       await bordersResponse.json();
 
     return borderCountries.map((borderCountry) => {
@@ -78,6 +78,7 @@ export async function getCountryBordersByName(name: string): Promise<BorderCount
         ptName,
         flag: borderCountry.flags.svg,
         flagAlt: borderCountry.flags.alt,
+        cca3: borderCountry.cca3
       };
     });
   } catch (error) {

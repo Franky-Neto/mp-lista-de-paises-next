@@ -14,6 +14,7 @@ export default async function Home() {
         ptName={country.translations.por.common}
         flag={country.flags.svg}
         flagAlt={country.flags.alt}
+        cca3={country.cca3}
       />
       ))}
     </section>

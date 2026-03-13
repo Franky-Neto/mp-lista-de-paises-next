@@ -4,11 +4,11 @@ import Image from "next/image";
 import CountryCard from "@/components/country-card";
 
 export default async function CountryPage(props: {
-  params: Promise<{ name: string }>;
+  params: Promise<{ cca3: string }>;
 }) {
   const params = await props.params;
-  const selectedCountry = await CountriesApi.getCountryByName(params.name);
-  const borders = await CountriesApi.getCountryBordersByName(params.name);
+  const selectedCountry = await CountriesApi.getCountryByName(params.cca3);
+  const borders = await CountriesApi.getCountryBordersByName(params.cca3);
 
   const formatter = Intl.NumberFormat("en", { notation: "compact" });
 
