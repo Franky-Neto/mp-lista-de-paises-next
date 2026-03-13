@@ -23,5 +23,7 @@ export type Country = {
 
   borders: string[];
 
-  languages?: Record<string, string>
+  languages?: Record<string, string>;
+
+  cca3: string;
 };
