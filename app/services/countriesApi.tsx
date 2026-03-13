@@ -23,7 +23,7 @@ export async function getAllCountries(): Promise<Country[]> {
 
 // getAllCountries().then(console.log);
 
-export async function getCountryByName(cca3: string): Promise<Country> {
+export async function getCountryBycca3(cca3: string): Promise<Country> {
   try {
     const response = await fetch(
       `${BASE_URL}/alpha/${cca3}?fields=name,flags,capital,population,region,borders,languages,continents,translations,cca3`,
@@ -41,9 +41,11 @@ export async function getCountryByName(cca3: string): Promise<Country> {
   }
 }
 
-// getCountryByName('ARG').then(console.log)
+// getCountryBycca3('ARG').then(console.log)
 
-export async function getCountryBordersByName(cca3: string): Promise<BorderCountry[]> {
+export async function getCountryBordersBycca3(
+  cca3: string,
+): Promise<BorderCountry[]> {
   try {
     const countryResponse = await fetch(
       `${BASE_URL}/alpha/${encodeURIComponent(cca3)}?fields=borders,cca3`,
@@ -67,18 +69,21 @@ export async function getCountryBordersByName(cca3: string): Promise<BorderCount
       throw new Error(`Erro ao buscar fronteiras: ${bordersResponse.status}`);
     }
 
-    const borderCountries: Pick<Country, "name" | "translations" | "flags" | "cca3">[] =
-      await bordersResponse.json();
+    const borderCountries: Pick<
+      Country,
+      "name" | "translations" | "flags" | "cca3"
+    >[] = await bordersResponse.json();
 
     return borderCountries.map((borderCountry) => {
-      const ptName = borderCountry.translations?.por?.common ?? borderCountry.name.common;
+      const ptName =
+        borderCountry.translations?.por?.common ?? borderCountry.name.common;
 
       return {
         name: borderCountry.name.common,
         ptName,
         flag: borderCountry.flags.svg,
         flagAlt: borderCountry.flags.alt,
-        cca3: borderCountry.cca3
+        cca3: borderCountry.cca3,
       };
     });
   } catch (error) {
@@ -87,4 +92,4 @@ export async function getCountryBordersByName(cca3: string): Promise<BorderCount
   }
 }
 
-// getCountryBordersByName('ARG').then(console.log)
+// getCountryBordersBycca3('ARG').then(console.log)
