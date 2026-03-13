@@ -26,8 +26,8 @@ export default async function CountryPage(props: {
         />
         Voltar
       </Link>
-      <article className="flex  justify-between min-w-full p-10 bg-white rounded-xl">
-        <section>
+      <article className="flex flex-col gap-6 justify-between min-w-full rounded-xl bg-white p-10 md:flex-row">
+        <section className="order-last md:order-first">
           {selectedCountry.capital.length > 0 && (
             <h2 className="text-xl text-gray-800">
               <b>🏛️ Capital: </b> {selectedCountry.capital}
@@ -54,7 +54,7 @@ export default async function CountryPage(props: {
             </h2>
           )}
         </section>
-        <div className="relative h-auto w-96 shadow-md">
+        <div className="relative order-first mt-2 h-48 w-full shadow-md md:order-last md:mt-0 md:h-auto md:w-96">
           <Image
             src={selectedCountry.flags.svg}
             alt={selectedCountry.flags.alt}
@@ -67,7 +67,7 @@ export default async function CountryPage(props: {
         <h3 className="mt-12  text-2xl font-semibold text-gray-800">
           Países que fazem fronteira
         </h3>
-        <div className="grid grid-cols-4 gap-3 w-full mt-3 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 w-full container gap-2 mt-6">
           {borders.map((border) => (
             <CountryCard key={border.name} {...border} />
           ))}
